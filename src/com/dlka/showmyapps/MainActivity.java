@@ -1,5 +1,11 @@
-package de.onyxbits.listmyapps;
+package com.dlka.showmyapps;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -8,16 +14,14 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-
-import android.net.Uri;
-import android.os.Bundle;
-import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.text.ClipboardManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,9 +48,12 @@ public class MainActivity extends ListActivity implements
 	private static final String ALWAYS_GOOGLE_PLAY = "always_link_to_google_play";
 	private static final String TEMPLATEID = "templateid";
 	public static final String SELECTED = "selected";
+	private static final String APP_TAG = "com.dlka.showmyapps";
 
 	@Override
 	protected void onCreate(Bundle b) {
+		  StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+	        StrictMode.setThreadPolicy(policy);
 		super.onCreate(b);
 		requestWindowFeature(Window.FEATURE_PROGRESS);
 		setContentView(R.layout.activity_main);
@@ -119,52 +126,33 @@ public class MainActivity extends ListActivity implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
-			case R.id.share: {
-				if (!isNothingSelected()) {
-					CharSequence buf = buildOutput();
-					if (buf.length() < 90 * 1024) {
-						// Intents get sent through the Binder and according to the
-						// TransactionLogTooLargeException docs that thing has a fixed
-						// size, shared buffer (1mb max). There is no telling how much
-						// free space there really is, but exceeding the limit will crash
-						// the device. Restricting ourselves to 90kb (found by trial and
-						// error) is anything but pretty, but still better than forcing
-						// users to reboot. Curiously, the copy&paste buffer can handle
-						// more.
-						Intent sendIntent = new Intent();
-						sendIntent.setAction(Intent.ACTION_SEND);
-						sendIntent.putExtra(Intent.EXTRA_TEXT, buf.toString());
-						sendIntent.setType("text/plain");
-						startActivity(Intent.createChooser(sendIntent, getResources()
-								.getText(R.string.title_send_to)));
-						break;
-					}
-					else {
-						Toast.makeText(this, R.string.msg_too_large, Toast.LENGTH_SHORT)
-								.show();
-						// Fallthrough to copy!
-					}
-				}
-			}
 			case R.id.copy: {
 				if (!isNothingSelected()) {
-					ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-					clipboard.setText(buildOutput().toString());
-					ListAdapter adapter = getListAdapter();
-					int count = adapter.getCount();
-					int selected = 0;
-
-					for (int i = 0; i < count; i++) {
-						SortablePackageInfo spi = (SortablePackageInfo) adapter.getItem(i);
-						if (spi.selected) {
-							selected++;
-						}
+					CharSequence buf = buildOutput();
+					//TODO sent html
+					//sendPost(buf.toString());
+					//Toast.makeText(this, buf.toString(), Toast.LENGTH_LONG).show();
+					
+					try {
+						String qry="username=max&applist="+buf.toString();
+						String result=SendPost(qry);
+						Log.d(APP_TAG, "qry");
+						Log.d(APP_TAG, qry);
+						Log.d(APP_TAG, result);
+						String[] result2=result.split("<a href=\"");
+						String url = result2[1].toString();
+						String[] url2 = url.split("\">");
+						
+						//Toast.makeText(this, result2[1], Toast.LENGTH_LONG).show();
+						
+						Uri uri = Uri.parse(url2[0].toString());
+						Intent browserIntent = new Intent(Intent.ACTION_VIEW, uri);
+						this.startActivity(browserIntent);
+						
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-					Toast
-							.makeText(
-									this,
-									getString(R.string.msg_list_copied_to_clipboard, selected,
-											count), Toast.LENGTH_SHORT).show();
 				}
 				break;
 			}
@@ -188,41 +176,11 @@ public class MainActivity extends ListActivity implements
 				((AppAdapter) adapter).notifyDataSetChanged();
 				break;
 			}
-
-			case (R.id.annotations): {
-				startActivity(new Intent(this, AnnotationsActivity.class));
-				break;
-			}
-			case (R.id.edit_templates): {
-				startActivity(new Intent(this, TemplatesActivity.class));
-				break;
-			}
-			case (R.id.bytag): {
-				TagSelectionListener tsl = new TagSelectionListener(getListAdapter());
-				AlertDialog.Builder builder = new AlertDialog.Builder(this);
-				if (tsl.listTags().length == 0) {
-					builder.setTitle(R.string.title_select_apps_by_tag).setMessage(
-							R.string.msg_no_apps_tagged);
-				}
-				else {
-					builder.setTitle(R.string.title_select_apps_by_tag)
-							.setMultiChoiceItems(tsl.listTags(), null, tsl)
-							.setPositiveButton(android.R.string.ok, tsl);
-				}
-				builder.show();
-				break;
-			}
 			case (R.id.item_help): {
 				Uri uri = Uri.parse(getString(R.string.url_help));
 				MainActivity.openUri(this,uri);
 				return true;
 			} 
-			case (R.id.browse): {
-				if (!isNothingSelected()) {
-					doStumble();
-				}
-				break;
-			}
 		}
 		return true;
 	}
@@ -272,7 +230,7 @@ public class MainActivity extends ListActivity implements
 		int count = adapter.getCount();
 
 		String now = java.text.DateFormat.getDateTimeInstance().format(
-				Calendar.getInstance().getTime());
+				Calendar .getInstance().getTime());
 		int selected = 0;
 
 		for (int i = 0; i < count; i++) {
@@ -300,7 +258,8 @@ public class MainActivity extends ListActivity implements
 						.replace("${lastupdated}", lastUpdated)
 						.replace("${datadir}", noNull(spi.dataDir))
 						.replace("${marketid}", noNull(spi.installer));
-				ret.append(tmpl);
+				ret.append(spi.packageName);
+				ret.append(":::");
 			}
 		}
 		ret.insert(
@@ -435,9 +394,43 @@ public class MainActivity extends ListActivity implements
 		}
 		catch (ActivityNotFoundException e) {
 			// There are actually people who don't have a webbrowser installed
-			Toast.makeText(ctx, de.onyxbits.listmyapps.R.string.msg_no_webbrowser, Toast.LENGTH_SHORT)
+			Toast.makeText(ctx, com.dlka.showmyapps.R.string.msg_no_webbrowser, Toast.LENGTH_SHORT)
 					.show();
 		}
 	}
+	      
+	       
+	        public String SendPost(String data) throws IOException   {
+	            URL url = new URL("http://show-my-apps.de/parser.php");
 
+	            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	            connection.setDoOutput(true);
+	            connection.setRequestMethod("POST");
+	            
+	            // If cookie exists, then send cookie
+	           
+	            
+	            // If Post Data not empty, then send POST Data
+	            if (data != "") {
+	                OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+	                out.write(data);
+	                out.flush();
+	                out.close();
+	            }
+	            
+	            // Save Cookie
+	            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+	            String headerName = null;
+	            //_cookies.clear();
+	            
+	            // Get HTML from Server
+	            String getData = "";
+	            String decodedString;
+	            while ((decodedString = in.readLine()) != null) {
+	                getData += decodedString + "\n";
+	            }
+	            in.close();
+	            
+	            return getData;
+	        }
 }

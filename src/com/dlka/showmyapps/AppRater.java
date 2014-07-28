@@ -1,4 +1,4 @@
-package de.onyxbits.listmyapps;
+package com.dlka.showmyapps;
 
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.util.Log;
+import com.dlka.showmyapps.R;
 
 /**
  * Ask the user about reviewing the app on Google Play after a reasonable

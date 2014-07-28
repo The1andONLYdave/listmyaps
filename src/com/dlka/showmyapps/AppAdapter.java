@@ -1,4 +1,4 @@
-package de.onyxbits.listmyapps;
+package com.dlka.showmyapps;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.dlka.showmyapps.R;
 
 /**
  * For mapping a SortablePackageInfo into a view.

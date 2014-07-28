@@ -1,4 +1,4 @@
-package de.onyxbits.listmyapps;
+package com.dlka.showmyapps;
 
 import android.content.pm.ApplicationInfo;
 import android.graphics.drawable.Drawable;

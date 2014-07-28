@@ -1,4 +1,4 @@
-package de.onyxbits.listmyapps;
+package com.dlka.showmyapps;
 
 import java.lang.ref.WeakReference;
 

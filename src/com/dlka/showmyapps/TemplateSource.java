@@ -1,4 +1,4 @@
-package de.onyxbits.listmyapps;
+package com.dlka.showmyapps;
 
 import java.util.ArrayList;
 import java.util.List;

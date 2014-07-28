@@ -1,4 +1,4 @@
-package de.onyxbits.listmyapps;
+package com.dlka.showmyapps;
 
 import android.widget.ImageView;
 import android.widget.TextView;

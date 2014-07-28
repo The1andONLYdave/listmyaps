@@ -1,4 +1,4 @@
-package de.onyxbits.listmyapps;
+package com.dlka.showmyapps;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.dlka.showmyapps.R;
 
 public class TemplateEditorActivity extends Activity implements OnClickListener {
 

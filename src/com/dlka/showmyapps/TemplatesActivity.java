@@ -1,4 +1,4 @@
-package de.onyxbits.listmyapps;
+package com.dlka.showmyapps;
 
 
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import com.dlka.showmyapps.R;
 
 public class TemplatesActivity extends ListActivity {
 
