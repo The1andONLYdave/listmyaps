@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.dlka.showmyapps"
-	android:versionCode="16"
-	android:versionName="0.1" >
+	android:versionCode="17"
+	android:versionName="0.2" >
 
 	<uses-sdk
 		android:minSdkVersion="9"
@@ -22,30 +22,6 @@
 
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
-		</activity>
-		<activity
-			android:name="com.dlka.showmyapps.TemplatesActivity"
-			android:label="@string/title_activity_templates"
-			android:parentActivityName="com.dlka.showmyapps.MainActivity" >
-			<meta-data
-				android:name="android.support.PARENT_ACTIVITY"
-				android:value="de.onyxbits.listmyapps.MainActivity" />
-		</activity>
-		<activity
-			android:name="com.dlka.showmyapps.TemplateEditorActivity"
-			android:label="@string/title_activity_template_editor"
-			android:parentActivityName="com.dlka.showmyapps.TemplatesActivity" >
-			<meta-data
-				android:name="android.support.PARENT_ACTIVITY"
-				android:value="de.onyxbits.listmyapps.TemplatesActivity" />
-		</activity>
-		<activity
-			android:name="com.dlka.showmyapps.AnnotationsActivity"
-			android:label="@string/title_activity_annotations"
-			android:parentActivityName="com.dlka.showmyapps.MainActivity" >
-			<meta-data
-				android:name="android.support.PARENT_ACTIVITY"
-				android:value="de.onyxbits.listmyapps.MainActivity" />
 		</activity>
 	</application>
 

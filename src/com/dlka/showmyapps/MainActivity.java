@@ -134,7 +134,7 @@ public class MainActivity extends ListActivity implements
 					//Toast.makeText(this, buf.toString(), Toast.LENGTH_LONG).show();
 					
 					try {
-						String qry="username=max&applist="+buf.toString();
+						String qry="username=max&applist="+buf.toString(); // TODO: Query username from user and save (prefs? sqlite?) 
 						String result=SendPost(qry);
 						Log.d(APP_TAG, "qry");
 						Log.d(APP_TAG, qry);
@@ -219,9 +219,9 @@ public class MainActivity extends ListActivity implements
 	 * @return the html response
 	 */
 	private CharSequence buildOutput() {
-		if (template == null) {
-			return getString(R.string.msg_error_no_templates);
-		}
+		//if (template == null) {
+		//	return getString(R.string.msg_error_no_templates);
+		//}
 
 		StringBuilder ret = new StringBuilder();
 	//	DateFormat df = DateFormat.getDateTimeInstance();
@@ -229,8 +229,8 @@ public class MainActivity extends ListActivity implements
 		ListAdapter adapter = getListAdapter();
 		int count = adapter.getCount();
 
-		String now = java.text.DateFormat.getDateTimeInstance().format(
-				Calendar .getInstance().getTime());
+	//	String now = java.text.DateFormat.getDateTimeInstance().format(
+		//		Calendar .getInstance().getTime());
 		int selected = 0;
 
 		for (int i = 0; i < count; i++) {
@@ -245,12 +245,12 @@ public class MainActivity extends ListActivity implements
 				ret.append(":::");
 			}
 		}
-		ret.insert(
-				0,
-				template.header.replace("${now}", now).replace("${count}",
-						"" + selected));
-		ret.append(template.footer.replace("${now}", now).replace("${count}",
-				"" + selected));
+		//ret.insert(
+		//		0,
+		//		template.header.replace("${now}", now).replace("${count}",
+		//				"" + selected));
+		//ret.append(template.footer.replace("${now}", now).replace("${count}",
+		//		"" + selected));
 		return ret;
 	}
 
