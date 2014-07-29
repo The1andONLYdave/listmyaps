@@ -67,7 +67,7 @@ public class MainActivity extends ListActivity implements
 	protected void onResume() {
 		super.onResume();
 		CheckBox checkbox = (CheckBox) findViewById(R.id.always_gplay);
-		Spinner spinner = (Spinner) findViewById(R.id.format_select);
+	//	Spinner spinner = (Spinner) findViewById(R.id.format_select);
 		templateSource = new TemplateSource(this);
 		templateSource.open();
 
@@ -76,8 +76,8 @@ public class MainActivity extends ListActivity implements
 				android.R.layout.simple_spinner_item, formats);
 		adapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinner.setAdapter(adapter);
-		spinner.setOnItemSelectedListener(this);
+		//spinner.setAdapter(adapter);
+		//spinner.setOnItemSelectedListener(this);
 		SharedPreferences prefs = getSharedPreferences(PREFSFILE, 0);
 		checkbox.setChecked(prefs.getBoolean((ALWAYS_GOOGLE_PLAY), false));
 		int selection = 0;
@@ -92,7 +92,7 @@ public class MainActivity extends ListActivity implements
 			template = null;
 			count++;
 		}
-		spinner.setSelection(selection);
+		//spinner.setSelection(selection);
 		setListAdapter(new AppAdapter(this, R.layout.app_item,
 				new ArrayList<SortablePackageInfo>(), R.layout.app_item));
 		new ListTask(this, R.layout.app_item).execute("");

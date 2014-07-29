@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="app_name">List My Apps</string>
+	<string name="app_name">Show-My-Apps</string>
 	<string name="deselect_all">Deselect all</string>
 	<string name="share">Share</string>
 	<string name="add">Add</string>
@@ -102,7 +102,7 @@
 	<string name="title_select_apps_by_tag">Select apps with tag</string>
 	<string name="msg_no_apps_tagged">No apps tagged! Apps can be tagged via the \'Annotations\' screen.</string>
 	<string name="msg_no_webbrowser">No webbrowser installed!</string>
-	<string name="url_help">http://www.onyxbits.de/faq/list-my-apps</string>
+	<string name="url_help">http://show-my-apps.de/faq/</string>
 	<string name="browse">browse</string>
 	<string name="url_browse">http://www.onyxbits.de/listmyapps/browse?suggest=%1$s</string>
 	

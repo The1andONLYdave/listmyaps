@@ -8,7 +8,7 @@
 	android:paddingTop="@dimen/activity_vertical_margin"
 	tools:context=".MainActivity" >
 
-	<TextView
+	<!--<TextView
 		android:id="@+id/format_as"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -19,14 +19,14 @@
 		android:text="@string/lbl_format_as"
 		android:textAppearance="?android:attr/textAppearanceMedium" />
 
-	<Spinner
+	 Spinner
 		android:id="@+id/format_select"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentRight="true"
 		android:layout_alignParentTop="true"
 		android:layout_toRightOf="@+id/format_as" />
-
+ -->
 	<LinearLayout
 		android:id="@+id/nest"
 		android:layout_width="match_parent"
