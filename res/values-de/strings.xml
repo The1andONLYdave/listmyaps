@@ -26,7 +26,6 @@
 		<item></item>
 	</string-array>
 	<string-array name="stdformats">
-	    <item>${packagename}:::</item>
 		<item>${packagename}:::</item>
 		<item>&lt;a href=\"${source}\"&gt;${displayname}&lt;/a&gt; ${comment}\n</item>
 		<item>[*] [url=${source}]${displayname}[/url] ${comment}\n</item>
@@ -39,7 +38,6 @@
 		<item>[/list]\nListe erstellt mit [url=https://play.google.com/store/apps/details?id=com.dlka.showmyapps]List My Apps[/url]</item>
 		<item></item>
 		<item>\nListe erstellt mit [List My Apps](https://play.google.com/store/apps/details?id=com.dlka.showmyapps)</item>
-		<item></item>
 	</string-array>
 
 	<string name="always_link">Immer auf Google Play verweisen, auch wenn nicht von dort installiert</string>

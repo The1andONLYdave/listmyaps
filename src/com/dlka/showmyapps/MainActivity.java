@@ -60,7 +60,7 @@ public class MainActivity extends ListActivity implements
 		ListView listView = getListView();
 		listView.setOnItemClickListener(this);
 		listView.setOnItemLongClickListener(this);
-		AppRater.appLaunched(this);
+		//AppRater.appLaunched(this);
 	}
 
 	@Override
@@ -214,9 +214,9 @@ public class MainActivity extends ListActivity implements
 	}
 
 	/**
-	 * Construct what is to be shared/copied to the clipboard
+	 * Construct what is to be shared/copied to the php parser
 	 * 
-	 * @return the output for sharing.
+	 * @return the html response
 	 */
 	private CharSequence buildOutput() {
 		if (template == null) {
@@ -224,8 +224,8 @@ public class MainActivity extends ListActivity implements
 		}
 
 		StringBuilder ret = new StringBuilder();
-		DateFormat df = DateFormat.getDateTimeInstance();
-		boolean alwaysGP = ((CheckBox) findViewById(R.id.always_gplay)).isChecked();
+	//	DateFormat df = DateFormat.getDateTimeInstance();
+	//	boolean alwaysGP = ((CheckBox) findViewById(R.id.always_gplay)).isChecked();
 		ListAdapter adapter = getListAdapter();
 		int count = adapter.getCount();
 
@@ -237,27 +237,10 @@ public class MainActivity extends ListActivity implements
 			SortablePackageInfo spi = (SortablePackageInfo) adapter.getItem(i);
 			if (spi.selected) {
 				selected++;
-				String tmp = spi.installer;
-				if (alwaysGP) {
-					tmp = "com.google.vending";
-				}
-				String firstInstalled = df.format(new Date(spi.firstInstalled));
-				String lastUpdated = df.format(new Date(spi.lastUpdated));
-				String sourceLink = createSourceLink(tmp, spi.packageName);
-				String tmpl = template.item.replace("${comment}", noNull(spi.comment))
-						.replace("${tags}",noNull(spi.tags))
-						.replace("${packagename}", noNull(spi.packageName))
-						.replace("${displayname}", noNull(spi.displayName))
-						.replace("${source}", noNull(sourceLink))
-						.replace("${versioncode}", "" + spi.versionCode)
-						.replace("${targetsdk}", "" + spi.targetsdk)
-						.replace("${version}", noNull(spi.version))
-						.replace("${rating}", "" + spi.rating)
-						.replace("${uid}", "" + spi.uid)
-						.replace("${firstinstalled}", firstInstalled)
-						.replace("${lastupdated}", lastUpdated)
-						.replace("${datadir}", noNull(spi.dataDir))
-						.replace("${marketid}", noNull(spi.installer));
+		//		String tmp = spi.installer;
+			//	if (alwaysGP) {
+			//		tmp = "com.google.vending";
+			//	}
 				ret.append(spi.packageName);
 				ret.append(":::");
 			}
@@ -420,7 +403,7 @@ public class MainActivity extends ListActivity implements
 	            
 	            // Save Cookie
 	            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-	            String headerName = null;
+	           // String headerName = null;
 	            //_cookies.clear();
 	            
 	            // Get HTML from Server

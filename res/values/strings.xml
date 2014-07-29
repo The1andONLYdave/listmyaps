@@ -58,7 +58,6 @@
 		<item>[/list]\nList made using [url=https://play.google.com/store/apps/details?id=com.dlka.showmyapps]List My Apps[/url]</item>
 		<item>\nList made using [List My Apps](https://play.google.com/store/apps/details?id=com.dlka.showmyapps)</item>
 		<item>\n</item>
-		<item></item>
 	</string-array>
 
 	<string name="always_link">Always link to Google Play, even if the app does not come from there</string>

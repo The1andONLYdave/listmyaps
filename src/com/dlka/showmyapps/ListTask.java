@@ -48,8 +48,8 @@ public class ListTask extends
 		List<PackageInfo> list = pm.getInstalledPackages(0);
 		SortablePackageInfo spitmp[] = new SortablePackageInfo[list.size()];
 		Iterator<PackageInfo> it = list.iterator();
-		AnnotationsSource aSource = new AnnotationsSource(listActivity);
-		aSource.open();
+	//	AnnotationsSource aSource = new AnnotationsSource(listActivity);
+	//	aSource.open();
 		int idx = 0;
 		while (it.hasNext()) {
 			PackageInfo info = it.next();
@@ -69,8 +69,8 @@ public class ListTask extends
 					spitmp[idx].lastUpdated = info.lastUpdateTime;
 					spitmp[idx].uid = info.applicationInfo.uid;
 					spitmp[idx].dataDir = info.applicationInfo.dataDir;
-					spitmp[idx].comment = aSource.getComment(info.packageName);
-					spitmp[idx].tags=aSource.getTags(info.packageName);
+		//			spitmp[idx].comment = aSource.getComment(info.packageName);
+		//			spitmp[idx].tags=aSource.getTags(info.packageName);
 					spitmp[idx].targetsdk = ai.targetSdkVersion;
 					idx++;
 				}
