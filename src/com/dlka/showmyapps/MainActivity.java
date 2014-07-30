@@ -231,6 +231,18 @@ public class MainActivity extends ListActivity implements
 				Uri uri = Uri.parse(getString(R.string.url_help)); MainActivity.openUri(this,uri);
 				return true;
 			} 
+			case (R.id.item_mail):{
+				FlurryAgent.logEvent("Menumail selected");
+				StringBuffer buffer = new StringBuffer();
+			    buffer.append("mailto:");
+			    buffer.append("feedback@kulsch-it.de");
+			    buffer.append("?subject=");
+			    buffer.append("App-Liste.de");
+			    buffer.append("&body=");
+			    String uriString = buffer.toString().replace(" ", "%20");
+
+			    startActivity(Intent.createChooser(new Intent(Intent.ACTION_SENDTO, Uri.parse(uriString)), "Contact Developer"));
+			}
 		}
 		return true;
 	}

@@ -22,5 +22,9 @@
 		android:icon="@drawable/ic_action_help"
 		android:title="@string/help">
 	</item>
-
+	<item
+		android:id="@+id/item_mail"
+		android:icon="@drawable/ic_action_help"
+		android:title="@string/mail">
+	</item>
 </menu>
