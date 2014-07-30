@@ -6,11 +6,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.Date;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -35,8 +33,11 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 public class MainActivity extends ListActivity implements
 		OnItemSelectedListener, OnItemClickListener, OnItemLongClickListener {
@@ -49,6 +50,15 @@ public class MainActivity extends ListActivity implements
 	private static final String TEMPLATEID = "templateid";
 	public static final String SELECTED = "selected";
 	private static final String APP_TAG = "com.dlka.showmyapps";
+	private static final String PROPERTY_ID = "App";
+    public enum TrackerName {
+        APP_TRACKER, // Tracker used only in this app.
+        GLOBAL_TRACKER, // Tracker used by all the apps from a company. eg: roll-up tracking.
+        ECOMMERCE_TRACKER, // Tracker used by all ecommerce transactions from a company.
+      }
+
+      HashMap<TrackerName, Tracker> mTrackers = new HashMap<TrackerName, Tracker>();
+      
 
 	@Override
 	protected void onCreate(Bundle b) {
@@ -61,6 +71,21 @@ public class MainActivity extends ListActivity implements
 		listView.setOnItemClickListener(this);
 		listView.setOnItemLongClickListener(this);
 		//AppRater.appLaunched(this);
+		  // Get tracker.
+        Tracker t = (getTracker(
+            TrackerName.APP_TRACKER));
+
+        // Set screen name.
+        // Where path is a String representing the screen name.
+        t.setScreenName("MainView");
+
+        // Send a screen view.
+        t.send(new HitBuilders.AppViewBuilder().build());
+        
+        
+        GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+        Tracker t1 = analytics.newTracker(R.xml.global_tracker);
+        t1.send(new HitBuilders.AppViewBuilder().build());
 	}
 
 	@Override
@@ -96,6 +121,7 @@ public class MainActivity extends ListActivity implements
 		setListAdapter(new AppAdapter(this, R.layout.app_item,
 				new ArrayList<SortablePackageInfo>(), R.layout.app_item));
 		new ListTask(this, R.layout.app_item).execute("");
+
 	}
 
 	@Override
@@ -132,7 +158,9 @@ public class MainActivity extends ListActivity implements
 					//TODO sent html
 					//sendPost(buf.toString());
 					//Toast.makeText(this, buf.toString(), Toast.LENGTH_LONG).show();
-					
+					//String value =
+					       // ((EditText) getView().findViewById(R.id.username)).getText().toString().trim();
+
 					try {
 						String qry="username=max&applist="+buf.toString(); // TODO: Query username from user and save (prefs? sqlite?) 
 						String result=SendPost(qry);
@@ -416,4 +444,25 @@ public class MainActivity extends ListActivity implements
 	            
 	            return getData;
 	        }
+	        
+	        /**
+	         * Enum used to identify the tracker that needs to be used for tracking.
+	         *
+	         * A single tracker is usually enough for most purposes. In case you do need multiple trackers,
+	         * storing them all in Application object helps ensure that they are created only once per
+	         * application instance.
+	         */
+	  
+	        synchronized Tracker getTracker(TrackerName trackerId) {
+	            if (!mTrackers.containsKey(trackerId)) {
+
+	              GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+	              Tracker t = (trackerId == TrackerName.APP_TRACKER) ? analytics.newTracker(PROPERTY_ID)
+	                  : (trackerId == TrackerName.GLOBAL_TRACKER) ? analytics.newTracker(R.xml.global_tracker)
+	                      : analytics.newTracker(R.xml.global_tracker);
+	              mTrackers.put(trackerId, t);
+
+	            }
+	            return mTrackers.get(trackerId);
+	          }
 }
