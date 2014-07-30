@@ -35,6 +35,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.flurry.android.FlurryAgent;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -95,7 +96,7 @@ public class MainActivity extends ListActivity implements
 	//	Spinner spinner = (Spinner) findViewById(R.id.format_select);
 		templateSource = new TemplateSource(this);
 		templateSource.open();
-
+		FlurryAgent.logEvent("onresume", true);
 		List<TemplateData> formats = templateSource.list();
 		ArrayAdapter<TemplateData> adapter = new ArrayAdapter<TemplateData>(this,
 				android.R.layout.simple_spinner_item, formats);
@@ -121,7 +122,7 @@ public class MainActivity extends ListActivity implements
 		setListAdapter(new AppAdapter(this, R.layout.app_item,
 				new ArrayList<SortablePackageInfo>(), R.layout.app_item));
 		new ListTask(this, R.layout.app_item).execute("");
-
+		FlurryAgent.endTimedEvent("onresume");
 	}
 
 	@Override
@@ -143,6 +144,20 @@ public class MainActivity extends ListActivity implements
 	}
 
 	@Override
+	protected void onStart()
+	{
+	super.onStart();
+	FlurryAgent.onStartSession(this, "H5N6DGG33JZRTMSRBXC3");
+	FlurryAgent.setUseHttps(true);
+	
+	}
+	@Override
+	protected void onStop()
+	{
+	super.onStop();	
+	FlurryAgent.onEndSession(this);
+	}
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
@@ -152,8 +167,10 @@ public class MainActivity extends ListActivity implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
-			case R.id.copy: {
+			case R.id.copy: { 
+				
 				if (!isNothingSelected()) {
+					FlurryAgent.logEvent("Upload",true);
 					CharSequence buf = buildOutput();
 					//TODO sent html
 					//sendPost(buf.toString());
@@ -172,16 +189,19 @@ public class MainActivity extends ListActivity implements
 						String[] url2 = url.split("\">");
 						
 						//Toast.makeText(this, result2[1], Toast.LENGTH_LONG).show();
-						
+						FlurryAgent.logEvent("Opening url");
 						Uri uri = Uri.parse(url2[0].toString());
 						Intent browserIntent = new Intent(Intent.ACTION_VIEW, uri);
 						this.startActivity(browserIntent);
 						
+						
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
+						FlurryAgent.logEvent("Upload IOException e");
 						e.printStackTrace();
 					}
 				}
+				else{FlurryAgent.logEvent("Upload nothing selected");}
+				FlurryAgent.endTimedEvent("Upload");
 				break;
 			}
 			case (R.id.deselect_all): {
@@ -192,6 +212,7 @@ public class MainActivity extends ListActivity implements
 					spi.selected = false;
 				}
 				((AppAdapter) adapter).notifyDataSetChanged();
+				FlurryAgent.logEvent("deselected all");
 				break;
 			}
 			case (R.id.select_all): {
@@ -202,11 +223,12 @@ public class MainActivity extends ListActivity implements
 					spi.selected = true;
 				}
 				((AppAdapter) adapter).notifyDataSetChanged();
+				FlurryAgent.logEvent("selected all");
 				break;
 			}
 			case (R.id.item_help): {
-				Uri uri = Uri.parse(getString(R.string.url_help));
-				MainActivity.openUri(this,uri);
+				FlurryAgent.logEvent("Menuhelp selected");
+				Uri uri = Uri.parse(getString(R.string.url_help)); MainActivity.openUri(this,uri);
 				return true;
 			} 
 		}
