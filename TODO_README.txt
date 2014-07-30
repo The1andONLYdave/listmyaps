@@ -2,13 +2,13 @@ TODO/Roadmap for this github repo, masterbranch
 If you fork this repo check if one of the things you wanna add is planed here by me too
 
 
-30.07.2014
+30.07.2014 versioncode 18
 vor update auf v0.3 (vielleicht wird das v0.2.5?)
 google tracking einbauen (bessere download und nutzerzahlen, internet hat die app ja sowieso)
 eventuell ganz unten am bildschirm ein kleines werbebanner(um so früher umso mehr nutzer die nicht updaten haben das banner auch)
 
 
-30./31.07.2014
+30./31.07.2014 versioncode 19
 für update v0.2->v0.3
 Noch zu erledigen:
 
@@ -21,12 +21,12 @@ dem user deutlich machen dass die ergebnisseite ONLINE ist im internet für jeden
 
 
 
-01.08.2014
+01.08.2014 versioncode 20
 danach aber vor v0.4
 (achtung for update schon das parsen nach einem dritten feld ermöglichen am ende des strings(username+alle_apps(weil keine sonderzeichen)+"freitext warum") und ein default wert in parser.php setzen!)
 		
 	
-01./02.08.2014		
+01./02.08.2014 versioncode 21
 für v0.4
 username und google play haken mitscrollbar machen für kleinere bildschirme bzw wegen kleineren bildschirmen?
 menülink zu hilfe seite wieder rein und passende .html erstellen und online stellen(eventuell in "anleitung" umbennen
