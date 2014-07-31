@@ -4,7 +4,6 @@ DEADJOE
 .#*
 *.jar
 *.zip
-*.apk
 bin/
 gen/
 bin/*
