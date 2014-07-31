@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="app_name">Teile meine Apps</string>
+	<string name="app_name">App-Liste.de</string>
 	<string name="deselect_all">Alles abwählen</string>
 	<string name="share">Teilen</string>
-	<string name="add">Hinzufügen</string>
-	<string name="remove">Entfernen</string>
-	<string name="save">Speichern</string>
 	<string name="help">Hilfe</string>
 	<string name="mail">Emaile dem Entwickler</string>
-	<string name="edit_templates">Vorlagen Editor</string>
-	<string name="annotations">Bemerkungen</string>
-
+	<string name="copy">Liste erstellen</string>
+	
 	<string-array name="stdformattitles">
 	    <item>Einfacher Text</item>
 		<item>HTML Liste</item>
@@ -58,16 +54,7 @@
 	<string name="apprater_positive">Sicher!</string>
 	<string name="apprater_negative">Nein, danke</string>
 	<string name="apprater_neutral">Später</string>
-	<string name="title_activity_templates">Vorlagen</string>
-	<string name="title_activity_annotations">Bemerkungen</string>
-	<string name="title_activity_template_editor">Vorlagen Editor</string>
-	<string name="title_really_delete">Wirklich löschen??</string>
-	<string name="title_variable_to_insert">Variablenauswahl</string>
 	<string name="title_send_to">Teilen mit</string>
-	<string name="hint_header">Listenkopf (darf leer bleiben)</string>
-	<string name="hint_item">Listeneintrag (darf nicht leer bleiben)</string>
-	<string name="hint_footer">Listenfuß (darf leer bleiben)</string>
-	<string name="hint_my_notes">Meine Notizen</string>
 	<string name="msg_error_no_templates">Whoops! Wo sind denn alle Vorlagen hin?!</string>
 	<string name="msg_error_incomplete">Name und Eintrag dürfen nicht leer sein!</string>
 	<string name="msg_warn_nothing_selected">Es muss mindestens eine App ausgewählt werden!</string>
@@ -77,10 +64,6 @@
 	<string name="msg_this_cannot_be_undone">Dies kann nicht rückgängig gemacht werden.</string>
 	<string name="btn_save">Speichern</string>
 	<string name="btn_cancel">Abbrechen</string>
-	<string name="hint_my_tags">Tags (durch Komma getrennt)</string>
 	<string name="bytag">Gruppenauswahl</string>
-	<string name="title_select_apps_by_tag">Apps mit Tag auswählen</string>
-	<string name="msg_no_apps_tagged">Keine Apps mit Tags gefunden! Apps können via \'Bemerkungen\' Maske getagt werden.</string>
-	<string name="browse">stöbern</string>
 
 </resources>
