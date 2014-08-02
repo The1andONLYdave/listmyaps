@@ -190,6 +190,10 @@ public class MainActivity extends ListActivity implements
 						
 						//Toast.makeText(this, result2[1], Toast.LENGTH_LONG).show();
 						FlurryAgent.logEvent("Opening url");
+						
+						shareTextUrl(url2[0].toString());
+						Toast.makeText(this, "Link geteilt", Toast.LENGTH_LONG).show();
+					
 						Uri uri = Uri.parse(url2[0].toString());
 						Intent browserIntent = new Intent(Intent.ACTION_VIEW, uri);
 						this.startActivity(browserIntent);
@@ -499,4 +503,16 @@ public class MainActivity extends ListActivity implements
 	            }
 	            return mTrackers.get(trackerId);
 	          }
+			  private void shareTextUrl(String url) {
+    Intent share = new Intent(android.content.Intent.ACTION_SEND);
+    share.setType("text/plain");
+    share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+ 
+    // Add data to the intent, the receiving app will decide
+    // what to do with it.
+    share.putExtra(Intent.EXTRA_SUBJECT, "Meine App-Liste");
+    share.putExtra(Intent.EXTRA_TEXT, url);
+ 
+    startActivity(Intent.createChooser(share, "Teilen!"));
+}
 }
