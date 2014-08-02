@@ -62,7 +62,7 @@
 		<item>\n</item>
 	</string-array>
 
-	<string name="always_link">Always link to Google Play, even if the app does not come from there</string>
+	<string name="always_link">Only create shareable webpage online, no sharing.</string>
 	<string name="lbl_format_as">Copy/Share as:</string>
 	<string name="lbl_version">Version</string>
 	<string name="lbl_versioncode">Version code</string>

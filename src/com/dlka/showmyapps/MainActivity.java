@@ -189,14 +189,20 @@ public class MainActivity extends ListActivity implements
 						String[] url2 = url.split("\">");
 						
 						//Toast.makeText(this, result2[1], Toast.LENGTH_LONG).show();
-						FlurryAgent.logEvent("Opening url");
 						
-						shareTextUrl(url2[0].toString());
-						Toast.makeText(this, "Link geteilt", Toast.LENGTH_LONG).show();
-					
-						Uri uri = Uri.parse(url2[0].toString());
-						Intent browserIntent = new Intent(Intent.ACTION_VIEW, uri);
-						this.startActivity(browserIntent);
+						
+						if (((CheckBox) findViewById(R.id.always_gplay)).isChecked()) {
+							FlurryAgent.logEvent("Opening url intent");
+							shareTextUrl(url2[0].toString());
+							Toast.makeText(this, "Link geteilt", Toast.LENGTH_LONG).show();
+						
+						}
+						else{
+							FlurryAgent.logEvent("Opening url browser");
+							Uri uri = Uri.parse(url2[0].toString());
+							Intent browserIntent = new Intent(Intent.ACTION_VIEW, uri);
+							this.startActivity(browserIntent);		
+						}
 						
 						
 					} catch (IOException e) {
@@ -291,7 +297,7 @@ public class MainActivity extends ListActivity implements
 
 		StringBuilder ret = new StringBuilder();
 	//	DateFormat df = DateFormat.getDateTimeInstance();
-	//	boolean alwaysGP = ((CheckBox) findViewById(R.id.always_gplay)).isChecked();
+		//boolean alwaysGP = ((CheckBox) findViewById(R.id.always_gplay)).isChecked();
 		ListAdapter adapter = getListAdapter();
 		int count = adapter.getCount();
 
