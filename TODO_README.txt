@@ -5,19 +5,19 @@ If you fork this repo check if one of the things you wanna add is planed here by
 30.07.2014 versioncode 18
 vor update auf v0.3 (vielleicht wird das v0.2.5?)
 google tracking einbauen (bessere download und nutzerzahlen, internet hat die app ja sowieso)
-eventuell ganz unten am bildschirm ein kleines werbebanner(um so früher umso mehr nutzer die nicht updaten haben das banner auch)
+---eventuell ganz unten am bildschirm ein kleines werbebanner(um so früher umso mehr nutzer die nicht updaten haben das banner auch)
 
 
 30./31.07.2014 versioncode 19
 für update v0.2->v0.3
 Noch zu erledigen:
 
-Username Feld einbauen (oben bei dem Google Play haken?)
-username feld mitsenden an den server
-splashscreen: erster start bla bla bla und häkchen bei "nicht mehr anzeigen"
+---Username Feld einbauen (oben bei dem Google Play haken?)
+---username feld mitsenden an den server
+---splashscreen: erster start bla bla bla und häkchen bei "nicht mehr anzeigen"
 button "kopieren" zu "uploaden" umbennen (beschriftung ist im querformat sichtbar)
-menülink zu hilfe seite rausnehmen
-dem user deutlich machen dass die ergebnisseite ONLINE ist im internet für jeden, und er den link nun teilen kann(er braucht das nicht abzufotografieren ;-)
+---menülink zu hilfe seite rausnehmen
+---dem user deutlich machen dass die ergebnisseite ONLINE ist im internet für jeden, und er den link nun teilen kann(er braucht das nicht abzufotografieren ;-)
 
 
 
@@ -37,4 +37,4 @@ feld "warum" in der app einfügen bzw "beschreibung" oder "bennene die liste" z.b
 
 nicht verpeilen: jedes update im google play braucht ein versioncode und versionnumber ++, sonst muss die apk nochmal gebaut und gesigned werden.
 
-updated: 30.07.2014
+updated: 05.08.2014

@@ -105,7 +105,8 @@ public class MainActivity extends ListActivity implements
 		//spinner.setAdapter(adapter);
 		//spinner.setOnItemSelectedListener(this);
 		SharedPreferences prefs = getSharedPreferences(PREFSFILE, 0);
-		checkbox.setChecked(prefs.getBoolean((ALWAYS_GOOGLE_PLAY), false));
+		//checkbox.setChecked(prefs.getBoolean((ALWAYS_GOOGLE_PLAY), true));
+		checkbox.setChecked(true);
 		int selection = 0;
 		Iterator<TemplateData> it = formats.iterator();
 		int count = 0;
