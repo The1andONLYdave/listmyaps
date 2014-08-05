@@ -31,11 +31,15 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -57,6 +61,8 @@ public class MainActivity extends ListActivity implements
         GLOBAL_TRACKER, // Tracker used by all the apps from a company. eg: roll-up tracking.
         ECOMMERCE_TRACKER, // Tracker used by all ecommerce transactions from a company.
       }
+    private AdView adView;
+    
 
       HashMap<TrackerName, Tracker> mTrackers = new HashMap<TrackerName, Tracker>();
       
@@ -87,11 +93,44 @@ public class MainActivity extends ListActivity implements
         GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
         Tracker t1 = analytics.newTracker(R.xml.global_tracker);
         t1.send(new HitBuilders.AppViewBuilder().build());
+        
+        // Create the adView.
+        adView = new AdView(this);
+        adView.setAdUnitId("ca-app-pub-8761501900041217/7037219683");
+        adView.setAdSize(AdSize.BANNER);
+
+        // Lookup your LinearLayout assuming it's been given
+        // the attribute android:id="@+id/mainLayout".
+        LinearLayout layout = (LinearLayout)findViewById(R.id.bannerLayout);
+
+        // Add the adView to it.
+        layout.addView(adView);
+
+        // Initiate a generic request.
+       // AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder()
+        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)       // Emulator
+        .addTestDevice("89CADD0B4B609A30ABDCB7ED4E90A8DE")
+        .build();
+        
+        // Load the adView with the ad request.
+        adView.loadAd(adRequest);
+
+        
+        
 	}
 
+	 @Override
+	  public void onDestroy() {
+	    adView.destroy();
+	    super.onDestroy();
+	  }
+
+	 
 	@Override
 	protected void onResume() {
 		super.onResume();
+		adView.resume();
 		CheckBox checkbox = (CheckBox) findViewById(R.id.always_gplay);
 	//	Spinner spinner = (Spinner) findViewById(R.id.format_select);
 		templateSource = new TemplateSource(this);
@@ -128,6 +167,7 @@ public class MainActivity extends ListActivity implements
 
 	@Override
 	public void onPause() {
+		adView.pause();
 		super.onPause();
 		SharedPreferences.Editor editor = getSharedPreferences(PREFSFILE, 0).edit();
 		editor.putBoolean(ALWAYS_GOOGLE_PLAY,
