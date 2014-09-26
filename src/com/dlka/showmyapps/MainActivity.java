@@ -251,8 +251,11 @@ public class MainActivity extends ListActivity implements
 						e.printStackTrace();
 					}
 				}
+				
 				else{FlurryAgent.logEvent("Upload nothing selected");}
 				FlurryAgent.endTimedEvent("Upload");
+				Toast.makeText(this, "Bitte 1 oder mehr Apps auswählen!", Toast.LENGTH_LONG).show();
+				
 				break;
 			}
 			case (R.id.deselect_all): {
@@ -320,6 +323,8 @@ public class MainActivity extends ListActivity implements
 			}
 			sb.append(collect.get(i));
 			if (sb.length()>200) {
+				FlurryAgent.logEvent("sb.lenght too long "+sb.length());
+				Toast.makeText(this, "Zuviele Apps  ausgewählt!", Toast.LENGTH_LONG).show();		
 				break; // prevent the url from growing overly large. 
 			}
 		}
